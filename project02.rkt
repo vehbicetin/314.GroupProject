@@ -71,18 +71,21 @@
 (test (preF-parse '(+ 3 4)) (plusFS (numFS 3) (numFS 4)))
 (test (preF-parse '(+ (+ 3 4) 3)) (plusFS (plusFS (numFS 3) (numFS 4)) (numFS 3)))
 (test (preF-parse '(+ 3 4)) (plusF (numFS 3) (numF 4))) ;BAD one.
+
 ;Tests for uminus operation
 (test (preF-parse '(- 7)) (uminusFS (numFS 7)))
 (test (preF-parse '(- 12)) (uminusFS (numFS 12)))
 (test (preF-parse '(- 23)) (uminusFS (numFS 23)))
 (test (preF-parse '(- 44)) (uminusFS (numFS 44)))
 (test (preF-parse '(- 668)) (uminusFS (numFS 301))) ;BAD one.
+
 ;Tests for exponention operation
 (test (preF-parse '(** 2 5)) (expFS (numFS 2) (numFS 5)))
 (test (preF-parse '(** 7 8)) (expFS (numFS 7) (numFS 8)))
 (test (preF-parse '(** 3 7)) (expFS (numFS 3) (numFS 7)))
 (test (preF-parse '(** 5 6)) (expFS (numFS 5) (numFS 6)))
 (test (preF-parse '(** 12 2)) (expFS (numFS 2) (numFS 5))) ; BAD one.
+
 ;Tests for nested expressions
 (test (preF-parse '(- (- 3) 5)) (subFS (uminusFS (numFS 3)) (numFS 5)))
 (test (preF-parse '(+ (* (- 7) 5) 7)) (plusFS (multFS (uminusFS (numFS 7)) (numFS 5)) (numFS 7)))
@@ -111,37 +114,43 @@
     
     [uminusFS (e) (desugar (multFS (numFS -1) e))]
 ))
+
 ;; Tests for desugaring procedure
 (test (desugar(numFS 9)) (numF 9))
 (test (desugar(numFS 17)) (numF 16)) ; BAD one.
 (test (desugar(numFS 4)) (numF 4))
 (test (desugar(numFS 112)) (numF 112))
 (test (desugar(numFS 6)) (numF 6))
+
 ;; Tests for plus operation
 (test (desugar(plusFS (numFS 8) (numFS 14))) (plusF (numF 8) (numF 14)))
 (test (desugar(plusFS (numFS 16) (numFS 4))) (plusF (numF 16) (numF 4)))
 (test (desugar(plusFS (plusFS (numFS 8) (numFS 14)) (numFS 8))) (plusF (plusF (numF 8) (numF 14)) (numF 8)))
 (test (desugar(plusFS (numFS 6) (numFS 4))) (plusF (numF 6) (numF 4)))
 (test (desugar(plusFS (numFS 12) (numFS 33))) (plusF (numF 12) (numF 30))) ;BAD one.
+
 ;; Tests for multiplication operation
 (test (desugar(multFS (numFS 8) (numFS 14))) (multF (numF 8) (numF 14)))
 (test (desugar(multFS (numFS 16) (numFS 4))) (multF (numF 16) (numF 4)))
 (test (desugar(multFS (multFS (numFS 8) (numFS 14)) (numFS 8))) (multF (multF (numF 8) (numF 14)) (numF 8)))
 (test (desugar(multFS (numFS 6) (numFS 4))) (multF (numF 6) (numF 4)))
 (test (desugar(multFS (numFS 12) (numFS 33))) (multF (numF 12) (numF 30))) ;BAD one.
-; Tests for subtraction operation
+
+;; Tests for subtraction operation
 (test (desugar(subFS (numFS 8) (numFS 14))) (subF (numF 8) (numF 14)))
 (test (desugar(subFS (numFS 16) (numFS 4))) (subF (numF 16) (numF 4)))
 (test (desugar(subFS (subFS (numFS 8) (numFS 14)) (numFS 8))) (subF (subF (numF 8) (numF 14)) (numF 8)))
 (test (desugar(subFS (numFS 6) (numFS 4))) (subF (numF 6) (numF 4)))
 (test (desugar(subFS (numFS 12) (numFS 33))) (subF (numF 12) (numF 30))) ;BAD one.
-; Tests for exponention operation
+
+;; Tests for exponention operation
 (test (desugar(expFS (numFS 8) (numFS 14))) (expF (numF 8) (numF 14)))
 (test (desugar(expFS (numFS 16) (numFS 4))) (expF (numF 16) (numF 4)))
 (test (desugar(expFS (expFS (numFS 8) (numFS 14)) (numFS 8))) (expF (expF (numF 8) (numF 14)) (numF 8)))
 (test (desugar(expFS (numFS 6) (numFS 4))) (expF (numF 6) (numF 4)))
 (test (desugar(expFS (numFS 12) (numFS 33))) (expF (numF 12) (numF 30))) ;BAD one.
-; Tests for unaryminus operation
+
+;; Tests for unaryminus operation
 (test (desugar(uminusFS (numFS 7))) (multF (numF -1) (numF 7)))
 (test (desugar(plusFS (uminusFS (numFS 10)) (uminusFS (numFS 7)))) (plusF (multF (numF -1) (numF 10)) (multF (numF -1) (numF 7))))
 (test (desugar(uminusFS (numFS 11))) (multF (numF -1) (numF 11)))
