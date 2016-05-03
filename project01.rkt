@@ -7,7 +7,7 @@
 ; Alphabet {+,-,*,**}
 ; T -> Terminal symbols (whole numbers)
 ; N -> NonTerminal symbols {S}
-; S -> Start Point
+; S -> StartPoint
 ; P -> Production Rules :
                   ; S -> number
                   ; S -> + S S
