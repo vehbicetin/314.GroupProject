@@ -6,7 +6,7 @@
 ; Alphabet {+,-,*,**,id}
 ; T -> Terminal symbols (whole numbers)
 ; N -> NonTerminal symbols {exp,statement,parameter,compoundstmt}
-; S -> Start Point
+; S -> StartPoint
 ; P -> Production Rules :
                   ; exp -> number
                   ; exp -> + exp exp
