@@ -218,13 +218,14 @@
  (test (interp(expC (numC 7) (numC 3)) (fdC 'double  'x (plusC (idC  'x) (idC  'x)))) 7) ;BAD one.
  (test (interp(expC (numC 10) (numC 3)) (fdC 'double  'x (plusC (idC  'x) (idC  'x)))) 1000)
  (test (interp(expC (numC 4) (numC 3)) (fdC 'double  'x (plusC (idC  'x) (idC  'x)))) 64)
+
  ;Tests for factorial operation
 (test(interp(factC 4 )(fdC 'double  'x (plusC (idC  'x) (idC  'x)))) 24)
 (test(interp(factC 5 )(fdC 'double  'x (plusC (idC  'x) (idC  'x)))) 120)
 (test(interp(factC 3 )(fdC 'double  'x (plusC (idC  'x) (idC  'x)))) 6)
 (test(interp(factC 2 )(fdC 'double  'x (plusC (idC  'x) (idC  'x)))) 2)
 (test(interp(factC 1 )(fdC 'double  'x (plusC (idC  'x) (idC  'x)))) 0) ;BAD one.
+
 ;Tests for nested expressions
- 
  (test (interp(igz(subC (numC 34) (numC 40)) (expC (numC 1) (numC 7)) (multC (numC 0) (numC 5))) (fdC 'double  'x (plusC (idC  'x) (idC  'x)))) 0)
  (test (interp(igz(plusC (numC -5) (numC 10)) (multC (numC 1) (numC 1)) (subC (numC 4) (numC 4))) (fdC 'double  'x (plusC (idC  'x) (idC  'x)))) 1)
